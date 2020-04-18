@@ -2,10 +2,13 @@
 #include <vector>
 #include <map>
 #include <regex>
+/*************************************************************
+    The library provides conversions in the range of 1-3999
+ ************************************************************/
 
 std::vector<std::pair<const unsigned int, const char*>> romanVector
 {
-    {1000, "M"}, {900,"CM"}, {500,"D"}, {400, "DM"},
+    {1000, "M"}, {900,"CM"}, {500,"D"}, {400, "CD"},
     {100, "C"}, {90, "XC"}, {50, "L"}, {40, "XL"},
     {10, "X"}, {9, "IX"}, {5, "V"}, {4, "IV"}, {1, "I"}    
 };
@@ -35,10 +38,10 @@ void checkRomanInput(const std::string &value)
 {
     std::smatch matchingBehavior;
     if(!(std::regex_search(value, matchingBehavior, romanNumerals)))
-        throw std::string("invalid data!");
+        throw -1;
 }
 
-std::map<char, int> romanMap 
+std::map<const char, const int> romanMap 
 {
     {'M', 1000},
     {'D', 500},
@@ -55,9 +58,8 @@ int fromRoman(const std::string &value)
     {
         checkRomanInput(value);
     }
-    catch(const std::string& error)
+    catch(const int& error)
     {
-        std::cerr << error << '\n';
         return -1;
     }
 
